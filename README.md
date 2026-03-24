@@ -14,6 +14,7 @@ claude install-skill https://github.com/Ship-With-AI/skills/tree/main/<skill-nam
 |-------|-------------|
 | [collect-feedback](./collect-feedback) | Find testers, prepare outreach, analyze feedback, and convert it into buildable specs. |
 | [go-live](./go-live) | Deploy to production — stack detection, hosting setup, domain config, and verification. |
+| [launch-day](./launch-day) | Get first users and revenue — platform-specific launch posts, outreach templates, and a 24-hour timeline. |
 
 ## Structure
 
