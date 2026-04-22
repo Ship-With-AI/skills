@@ -13,6 +13,7 @@ claude install-skill https://github.com/Ship-With-AI/skills/tree/main/<skill-nam
 | Skill | Description |
 |-------|-------------|
 | [collect-feedback](./collect-feedback) | Find testers, prepare outreach, analyze feedback, and convert it into buildable specs. |
+| [context-tax](./context-tax) | Audit a Claude Code session — measure how much time and tokens went to re-explaining context vs. shipping features. |
 | [go-live](./go-live) | Deploy to production — stack detection, hosting setup, domain config, and verification. |
 | [graveyard](./graveyard) | Close out dead or abandoned side-project repos — produces portfolio story, three rehearsable STAR+R stories, and a closing README commit. |
 | [launch-day](./launch-day) | Get first users and revenue — platform-specific launch posts, outreach templates, and a 24-hour timeline. |
