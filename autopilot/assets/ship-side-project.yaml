@@ -1,0 +1,68 @@
+# .archon/workflows/ship-side-project.yaml
+# Canonical Ship-With-AI side-project harness.
+# Wired by the /autopilot skill. Do not edit mid-run.
+#
+# 4 stages. 3 approval gates. 1 reflection.
+# Reads idea.md / user.md / stack.md / done.md from the project root.
+
+nodes:
+  - id: scope
+    prompt: |
+      Read idea.md, user.md, and stack.md from the project root.
+      Output 3 to 5 features as scope.md, ordered by dependency.
+      For each feature, also write a done.md with 3 to 5 machine-checkable acceptance lines.
+      Stop at 5 features. If the idea seems to need more, propose which features collapse into one.
+
+  - id: scope-gate
+    depends_on: [scope]
+    interactive: true
+    prompt: |
+      Show scope.md and the per-feature done.md files.
+      Wait for the user to reply: continue / revise / kill.
+
+  - id: build
+    depends_on: [scope-gate]
+    loop:
+      prompt: |
+        Read scope.md. Pick the next unfinished feature.
+        Read its done.md. Implement the feature against the acceptance lines.
+        Run lint and tests before claiming done.
+        Mark the feature complete in scope.md.
+      until: ALL_FEATURES_PASS_DONE_MD
+      fresh_context: true
+
+  - id: build-gate
+    depends_on: [build]
+    interactive: true
+    prompt: |
+      Show the working features (run them locally if possible).
+      Wait for the user to reply: continue / revise / kill.
+
+  - id: deploy
+    depends_on: [build-gate]
+    bash: |
+      # Replace with your deploy command. Default assumes Vercel.
+      vercel deploy --prod
+
+  - id: deploy-gate
+    depends_on: [deploy]
+    interactive: true
+    prompt: |
+      Show the live URL. Verify it returns 200.
+      Wait for the user to reply: continue / revise / kill.
+
+  - id: first-user
+    depends_on: [deploy-gate]
+    prompt: |
+      Read user.md. Draft the message inviting the named first user to try the live URL.
+      The message should reference: their context (from user.md), the specific feature
+      that solves their stated problem, and a one-question ask for feedback.
+      Print the drafted message. Do not send it — that's the user's call.
+
+  - id: patch
+    depends_on: [first-user]
+    prompt: |
+      Look at the full run. What went wrong? Output one rule we could add to
+      CLAUDE.md so this never happens again. Append it to CLAUDE.md under
+      a ## Lessons section (create the section if missing). Phrase the rule
+      as a positive directive, not a negative complaint. Date the rule.

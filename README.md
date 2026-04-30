@@ -12,6 +12,7 @@ claude install-skill https://github.com/Ship-With-AI/skills/tree/main/<skill-nam
 
 | Skill | Description |
 |-------|-------------|
+| [autopilot](./autopilot) | Wire the deterministic 5-decision harness that ships your next side project end-to-end — three input files, four named stages, three approval gates, one reflection rule per run. |
 | [collect-feedback](./collect-feedback) | Find testers, prepare outreach, analyze feedback, and convert it into buildable specs. |
 | [context-tax](./context-tax) | Audit a Claude Code session — measure how much time and tokens went to re-explaining context vs. shipping features. |
 | [go-live](./go-live) | Deploy to production — stack detection, hosting setup, domain config, and verification. |
