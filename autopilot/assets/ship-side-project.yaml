@@ -1,9 +1,21 @@
 # .archon/workflows/ship-side-project.yaml
 # Canonical Ship-With-AI side-project harness.
-# Wired by the /autopilot skill. Do not edit mid-run.
+# Wired by the /autopilot Claude Code skill.
 #
-# 4 stages. 3 approval gates. 1 reflection.
+# 4 stages. 3 approval gates. 1 reflection rule per run.
 # Reads idea.md / user.md / stack.md / done.md from the project root.
+#
+# Invoke with:
+#   archon workflow run ship-side-project "<one-line task description>"
+
+name: ship-side-project
+description: |
+  Wire idea + user + stack into a deployed first-user-ready side project.
+  4 stages: SCOPE -> BUILD -> DEPLOY -> FIRST-USER.
+  3 approval gates between stages.
+  1 reflection rule appended to project CLAUDE.md per run.
+
+interactive: true
 
 nodes:
   - id: scope
@@ -15,10 +27,12 @@ nodes:
 
   - id: scope-gate
     depends_on: [scope]
-    interactive: true
-    prompt: |
-      Show scope.md and the per-feature done.md files.
-      Wait for the user to reply: continue / revise / kill.
+    approval:
+      message: "Review scope.md and the per-feature done.md files. Approve to continue, reject with feedback to revise."
+      capture_response: true
+      on_reject:
+        prompt: "Revise scope.md based on this feedback: $REJECTION_REASON"
+        max_attempts: 3
 
   - id: build
     depends_on: [scope-gate]
@@ -28,28 +42,32 @@ nodes:
         Read its done.md. Implement the feature against the acceptance lines.
         Run lint and tests before claiming done.
         Mark the feature complete in scope.md.
-      until: ALL_FEATURES_PASS_DONE_MD
+
+        When ALL features in scope.md pass their done.md, output: <promise>COMPLETE</promise>
+      until: COMPLETE
+      max_iterations: 10
       fresh_context: true
 
   - id: build-gate
     depends_on: [build]
-    interactive: true
-    prompt: |
-      Show the working features (run them locally if possible).
-      Wait for the user to reply: continue / revise / kill.
+    approval:
+      message: "Review the working features (run them locally if possible). Approve to continue, reject with feedback to revise."
+      capture_response: true
+      on_reject:
+        prompt: "Address the reviewer's feedback: $REJECTION_REASON"
+        max_attempts: 3
 
   - id: deploy
     depends_on: [build-gate]
     bash: |
-      # Replace with your deploy command. Default assumes Vercel.
+      # Replace with your actual deploy command. Default assumes Vercel.
       vercel deploy --prod
+    timeout: 300000
 
   - id: deploy-gate
     depends_on: [deploy]
-    interactive: true
-    prompt: |
-      Show the live URL. Verify it returns 200.
-      Wait for the user to reply: continue / revise / kill.
+    approval:
+      message: "Verify the live URL returns 200 and the core feature works. Approve to continue, reject to revise the deploy."
 
   - id: first-user
     depends_on: [deploy-gate]
@@ -62,7 +80,7 @@ nodes:
   - id: patch
     depends_on: [first-user]
     prompt: |
-      Look at the full run. What went wrong? Output one rule we could add to
-      CLAUDE.md so this never happens again. Append it to CLAUDE.md under
-      a ## Lessons section (create the section if missing). Phrase the rule
-      as a positive directive, not a negative complaint. Date the rule.
+      Look at the full run. What went wrong, even slightly? Output one rule we could
+      add to CLAUDE.md so this never happens again. Append it to CLAUDE.md under
+      a ## Lessons section (create the section if missing). Phrase the rule as a
+      positive directive, not a negative complaint. Date the rule with today's date.

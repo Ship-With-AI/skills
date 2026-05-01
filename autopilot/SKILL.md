@@ -77,10 +77,10 @@ If Archon is already installed at the system level, skip step 4 and print "Archo
 
 On the user's exact reply of `go`:
 
-1. Print: "Starting harness. The agent will pause at three gates. Reply continue/revise/kill at each."
-2. Run `archon ship` — Archon takes over from here.
-3. The Archon workflow walks SCOPE → gate → BUILD → gate → DEPLOY → gate → FIRST-USER → patch.
-4. Each gate pauses for human input. The skill is done once Archon hands control back at the patch step.
+1. Print: "Starting harness. The agent will pause at three approval gates. Approve via `/workflow approve <run-id>` or reject with feedback at each."
+2. Run `archon workflow run ship-side-project "<one-line task description from idea.md>"` — Archon takes over from here.
+3. The Archon workflow walks SCOPE → scope-gate → BUILD (loop until COMPLETE) → build-gate → DEPLOY → deploy-gate → FIRST-USER → patch.
+4. Each `approval:` node pauses with a `gate_message` and waits for `/workflow approve <run-id>` (or reject). The skill is done once Archon hands control back at the patch step.
 
 Do **not** auto-confirm any gate on the user's behalf. Even if the agent thinks the artifact is fine.
 
@@ -172,7 +172,7 @@ The skill completed successfully when:
 
 The user should now be able to:
 
-- Re-run `archon ship` against any future side project with a fresh `idea.md` + `user.md` + `stack.md`
+- Re-run `archon workflow run ship-side-project "<task>"` against any future side project with a fresh `idea.md` + `user.md` + `stack.md`
 - Trust the workflow to ship without supervising every step
 - Watch session N+1 take less time than session N (because CLAUDE.md keeps growing)
 
