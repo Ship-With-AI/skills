@@ -1,0 +1,116 @@
+{
+  "_comment": "Canonical 5-agent org chart for a 5-side-project factory. Each entry is a POST /api/companies/{COMPANY_ID}/agent-hires body. Hire in order — CEO first (reportsTo: null), then CTO (reportsTo: CEO_ID), then engineers (reportsTo: CTO_ID), then marketer (reportsTo: CEO_ID). budgetMonthlyCents per agent = company total × split below.",
+  "_budget_splits": {
+    "ceo": 0.10,
+    "cto": 0.30,
+    "engineer_each": 0.20,
+    "marketer": 0.20
+  },
+  "agents": [
+    {
+      "name": "CEO",
+      "role": "ceo",
+      "title": "Chief Executive Officer",
+      "icon": "crown",
+      "reportsTo": null,
+      "capabilities": "Owns company goal, prioritizes project queue, approves new hires, runs the daily standup and gate reviews.",
+      "adapterType": "claude_local",
+      "adapterConfig": {
+        "cwd": "{PORTFOLIO_ROOT}",
+        "model": "claude-sonnet-4-5-20250929",
+        "promptTemplate": "You are the CEO. Your single goal is: {COMPANY_GOAL}. You prioritize tickets, run standups at 9am/13:00/17:00/21:00 (relative to factory start), and approve DEPLOY transitions. You do NOT write code. Delegate engineering to the CTO and the engineers."
+      },
+      "runtimeConfig": {
+        "heartbeat": {
+          "enabled": false,
+          "wakeOnDemand": true
+        }
+      },
+      "budgetMonthlyCents": "{CEO_BUDGET}"
+    },
+    {
+      "name": "CTO",
+      "role": "cto",
+      "title": "Chief Technology Officer",
+      "icon": "code",
+      "reportsTo": "{CEO_ID}",
+      "capabilities": "Owns architecture across all side projects. Reviews engineering decisions. Writes the cross-project stack.md if the projects share a stack.",
+      "adapterType": "claude_local",
+      "adapterConfig": {
+        "cwd": "{PORTFOLIO_ROOT}",
+        "model": "claude-sonnet-4-5-20250929",
+        "promptTemplate": "You are the CTO. You review engineering decisions across all 5 side projects. You do NOT assign tickets to yourself. You do NOT replace engineers. You ONLY review and unblock. Architecture decisions ladder up to the CEO."
+      },
+      "runtimeConfig": {
+        "heartbeat": {
+          "enabled": false,
+          "wakeOnDemand": true
+        }
+      },
+      "budgetMonthlyCents": "{CTO_BUDGET}"
+    },
+    {
+      "name": "Engineer1",
+      "role": "engineer",
+      "title": "Software Engineer (Project A & B)",
+      "icon": "wrench",
+      "reportsTo": "{CTO_ID}",
+      "capabilities": "Owns 2 side-project harnesses. Runs /autopilot inside each project subdirectory. Reports blockers to CTO at standup.",
+      "adapterType": "claude_local",
+      "adapterConfig": {
+        "cwd": "{PORTFOLIO_ROOT}/{PROJECT_A_SLUG}",
+        "model": "claude-sonnet-4-5-20250929",
+        "promptTemplate": "You are an Engineer. You own 2 side-project harnesses. For each assigned ticket, run `archon workflow run ship-side-project \"<task>\"` inside the project subdirectory. Report blockers to the CTO. Stop at budget cap."
+      },
+      "runtimeConfig": {
+        "heartbeat": {
+          "enabled": false,
+          "wakeOnDemand": true
+        }
+      },
+      "budgetMonthlyCents": "{ENGINEER_BUDGET}"
+    },
+    {
+      "name": "Engineer2",
+      "role": "engineer",
+      "title": "Software Engineer (Project C, D & E)",
+      "icon": "wrench",
+      "reportsTo": "{CTO_ID}",
+      "capabilities": "Owns 3 side-project harnesses. Runs /autopilot inside each project subdirectory. Reports blockers to CTO at standup.",
+      "adapterType": "claude_local",
+      "adapterConfig": {
+        "cwd": "{PORTFOLIO_ROOT}/{PROJECT_C_SLUG}",
+        "model": "claude-sonnet-4-5-20250929",
+        "promptTemplate": "You are an Engineer. You own 3 side-project harnesses. For each assigned ticket, run `archon workflow run ship-side-project \"<task>\"` inside the project subdirectory. Report blockers to the CTO. Stop at budget cap."
+      },
+      "runtimeConfig": {
+        "heartbeat": {
+          "enabled": false,
+          "wakeOnDemand": true
+        }
+      },
+      "budgetMonthlyCents": "{ENGINEER_BUDGET}"
+    },
+    {
+      "name": "Marketer",
+      "role": "marketer",
+      "title": "Marketing & First-User Outreach",
+      "icon": "megaphone",
+      "reportsTo": "{CEO_ID}",
+      "capabilities": "Runs FIRST-USER stages across all projects. Drafts launch messages from each project's user.md. Reports to CEO.",
+      "adapterType": "claude_local",
+      "adapterConfig": {
+        "cwd": "{PORTFOLIO_ROOT}",
+        "model": "claude-sonnet-4-5-20250929",
+        "promptTemplate": "You are the Marketer. When an Engineer hits the FIRST-USER stage on a project, you read that project's user.md and draft the invitation message. You do NOT send messages — that's the human's call. You do NOT write code."
+      },
+      "runtimeConfig": {
+        "heartbeat": {
+          "enabled": false,
+          "wakeOnDemand": true
+        }
+      },
+      "budgetMonthlyCents": "{MARKETER_BUDGET}"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "_comment": "POST /api/companies body. Substitute {COMPANY_NAME}, {ISSUE_PREFIX}, {BUDGET_CENTS} at scaffold time. budgetMonthlyCents = USD × 100.",
+  "name": "{COMPANY_NAME}",
+  "issuePrefix": "{ISSUE_PREFIX}",
+  "budgetMonthlyCents": "{BUDGET_CENTS}"
+}
