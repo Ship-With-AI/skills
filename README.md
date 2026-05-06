@@ -4,7 +4,31 @@ Reusable [Claude Code skills](https://code.claude.com/docs/en/plugins) for shipp
 
 ## Install
 
-Two commands. Once for the marketplace, once for the plugin.
+Two paths. Pick whichever fits your setup.
+
+### Path A — Cross-agent via Skills CLI (recommended)
+
+Single command. Works for 40+ agents (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, Amp, Cline, Aider, and more — auto-detected).
+
+```bash
+# Install all 9 skills to all detected agents
+npx skills add Ship-With-AI/skills --all
+
+# Or cherry-pick a single skill (e.g., just /autopilot)
+npx skills add Ship-With-AI/skills --skill autopilot
+
+# Or pick a few
+npx skills add Ship-With-AI/skills --skill autopilot --skill factory
+
+# Non-interactive (CI/CD or skip prompts)
+npx skills add Ship-With-AI/skills --all -g -y
+```
+
+From [vercel-labs/skills](https://github.com/vercel-labs/skills). No CLI install needed — `npx` fetches it on demand.
+
+### Path B — Claude Code native plugin marketplace
+
+If you're Claude-Code-only and prefer native tooling (no extra CLI):
 
 ```bash
 # 1. Register the marketplace (one-time)
@@ -14,7 +38,9 @@ claude plugin marketplace add Ship-With-AI/skills
 /plugin install ship-with-ai@ship-with-ai-skills
 ```
 
-After install, every skill is available via natural-language invocation (`/autopilot`, `/factory`, `/graveyard`, etc. — Claude triggers them via skill description matching).
+### After install
+
+Every skill is available via natural-language invocation (`/autopilot`, `/factory`, `/graveyard`, etc.) regardless of which install path you used — agents trigger skills via the `description:` field in each `SKILL.md`, not via path or namespace.
 
 ## Available skills
 
