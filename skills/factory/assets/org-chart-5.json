@@ -6,6 +6,7 @@
     "engineer_each": 0.20,
     "marketer": 0.20
   },
+  "_model_picks": "Opus 4.7 for CEO + CTO (architecture + prioritization need the reasoning), Sonnet 4.6 for engineers + marketer (execution + drafting are fine on the cheaper lane — matches Paperclip's 'cheap' modelProfile). dangerouslySkipPermissions: true is required because Paperclip runs Claude in headless --print mode where interactive permission prompts cannot be answered (per claude_local adapter docs).",
   "agents": [
     {
       "name": "CEO",
@@ -17,7 +18,10 @@
       "adapterType": "claude_local",
       "adapterConfig": {
         "cwd": "{PORTFOLIO_ROOT}",
-        "model": "claude-sonnet-4-5-20250929",
+        "model": "claude-opus-4-7",
+        "dangerouslySkipPermissions": true,
+        "maxTurnsPerRun": 1000,
+        "timeoutSec": 1800,
         "promptTemplate": "You are the CEO. Your single goal is: {COMPANY_GOAL}. You prioritize tickets, run standups at 9am/13:00/17:00/21:00 (relative to factory start), and approve DEPLOY transitions. You do NOT write code. Delegate engineering to the CTO and the engineers."
       },
       "runtimeConfig": {
@@ -38,7 +42,10 @@
       "adapterType": "claude_local",
       "adapterConfig": {
         "cwd": "{PORTFOLIO_ROOT}",
-        "model": "claude-sonnet-4-5-20250929",
+        "model": "claude-opus-4-7",
+        "dangerouslySkipPermissions": true,
+        "maxTurnsPerRun": 1000,
+        "timeoutSec": 1800,
         "promptTemplate": "You are the CTO. You review engineering decisions across all 5 side projects. You do NOT assign tickets to yourself. You do NOT replace engineers. You ONLY review and unblock. Architecture decisions ladder up to the CEO."
       },
       "runtimeConfig": {
@@ -59,7 +66,13 @@
       "adapterType": "claude_local",
       "adapterConfig": {
         "cwd": "{PORTFOLIO_ROOT}/{PROJECT_A_SLUG}",
-        "model": "claude-sonnet-4-5-20250929",
+        "model": "claude-sonnet-4-6",
+        "dangerouslySkipPermissions": true,
+        "maxTurnsPerRun": 1000,
+        "timeoutSec": 1800,
+        "workspaceStrategy": {
+          "type": "git_worktree"
+        },
         "promptTemplate": "You are an Engineer. You own 2 side-project harnesses. For each assigned ticket, run `archon workflow run ship-side-project \"<task>\"` inside the project subdirectory. Report blockers to the CTO. Stop at budget cap."
       },
       "runtimeConfig": {
@@ -80,7 +93,13 @@
       "adapterType": "claude_local",
       "adapterConfig": {
         "cwd": "{PORTFOLIO_ROOT}/{PROJECT_C_SLUG}",
-        "model": "claude-sonnet-4-5-20250929",
+        "model": "claude-sonnet-4-6",
+        "dangerouslySkipPermissions": true,
+        "maxTurnsPerRun": 1000,
+        "timeoutSec": 1800,
+        "workspaceStrategy": {
+          "type": "git_worktree"
+        },
         "promptTemplate": "You are an Engineer. You own 3 side-project harnesses. For each assigned ticket, run `archon workflow run ship-side-project \"<task>\"` inside the project subdirectory. Report blockers to the CTO. Stop at budget cap."
       },
       "runtimeConfig": {
@@ -101,7 +120,10 @@
       "adapterType": "claude_local",
       "adapterConfig": {
         "cwd": "{PORTFOLIO_ROOT}",
-        "model": "claude-sonnet-4-5-20250929",
+        "model": "claude-sonnet-4-6",
+        "dangerouslySkipPermissions": true,
+        "maxTurnsPerRun": 1000,
+        "timeoutSec": 1800,
         "promptTemplate": "You are the Marketer. When an Engineer hits the FIRST-USER stage on a project, you read that project's user.md and draft the invitation message. You do NOT send messages — that's the human's call. You do NOT write code."
       },
       "runtimeConfig": {
