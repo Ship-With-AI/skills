@@ -1,0 +1,16 @@
+{
+  "name": "ship-with-ai-skills",
+  "owner": {
+    "name": "Ship With AI",
+    "email": "hello@shipwithai.xyz",
+    "url": "https://shipwithai.substack.com"
+  },
+  "description": "Reusable Claude Code skills for shipping side projects with AI. Each skill packages a Ship With AI methodology edition (idea-to-first-user harness, multi-agent factory, deploy, launch, code review, dead-project closeout) as a one-command install.",
+  "plugins": [
+    {
+      "name": "ship-with-ai",
+      "source": "./",
+      "description": "All Ship With AI skills in one plugin: autopilot (single-project harness), factory (multi-project org chart), go-live (deploy), launch-day (first users), night-shift (overnight builds), parallel-build (multi-feature), context-tax (session diagnostic), graveyard (dead-project closeout), collect-feedback (tester pipeline)."
+    }
+  ]
+}
