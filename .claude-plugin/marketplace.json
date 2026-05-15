@@ -10,7 +10,7 @@
     {
       "name": "ship-with-ai",
       "source": "./",
-      "description": "All Ship With AI skills in one plugin: autopilot (single-project harness), factory (multi-project org chart), go-live (deploy), launch-day (first users), night-shift (overnight builds), parallel-build (multi-feature), context-tax (session diagnostic), graveyard (dead-project closeout), collect-feedback (tester pipeline)."
+      "description": "All Ship With AI skills in one plugin: autopilot (single-project harness), factory (multi-project org chart), pre-flight (4-question first-user-readiness eval), go-live (deploy), launch-day (first users), night-shift (overnight builds), parallel-build (multi-feature), context-tax (session diagnostic), graveyard (dead-project closeout), collect-feedback (tester pipeline)."
     }
   ]
 }
