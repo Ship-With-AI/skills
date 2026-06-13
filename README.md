@@ -11,7 +11,7 @@ Two paths. Pick whichever fits your setup.
 Single command. Works for 40+ agents (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, Amp, Cline, Aider, and more — auto-detected).
 
 ```bash
-# Install all 11 skills to all detected agents
+# Install all 12 skills to all detected agents
 npx skills add Ship-With-AI/skills --all
 
 # Or cherry-pick a single skill (e.g., just /autopilot)
@@ -34,7 +34,7 @@ If you're Claude-Code-only and prefer native tooling (no extra CLI):
 # 1. Register the marketplace (one-time)
 claude plugin marketplace add Ship-With-AI/skills
 
-# 2. Install the plugin (gets all 11 skills)
+# 2. Install the plugin (gets all 12 skills)
 /plugin install ship-with-ai@ship-with-ai-skills
 ```
 
@@ -49,6 +49,7 @@ Every skill is available via natural-language invocation (`/autopilot`, `/factor
 | [autopilot](./skills/autopilot) | Wire the deterministic 5-decision harness that ships your next side project end-to-end — three input files, four named stages, three approval gates, one reflection rule per run. |
 | [collect-feedback](./skills/collect-feedback) | Find testers, prepare outreach, analyze feedback, and convert it into buildable specs. |
 | [context-tax](./skills/context-tax) | Audit a Claude Code session — measure how much time and tokens went to re-explaining context vs. shipping features. |
+| [evaluate-side-project](./skills/evaluate-side-project) | Evaluate, score, and pressure-test a side project idea before implementation — Reddit problem mining, Kaufman 10-factor score, and one-feature PASTA MVP verdict. |
 | [factory](./skills/factory) | Run multiple side projects in parallel via an AI org chart — Paperclip company, 3-5 agents, per-agent budgets, four daily attention windows. Companion to /autopilot at the portfolio scale. |
 | [go-live](./skills/go-live) | Deploy to production — stack detection, hosting setup, domain config, and verification. |
 | [graveyard](./skills/graveyard) | Close out dead or abandoned side-project repos — produces portfolio story, three rehearsable STAR+R stories, and a closing README commit. |
