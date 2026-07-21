@@ -11,7 +11,7 @@ Two paths. Pick whichever fits your setup.
 Single command. Works for 40+ agents (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, Amp, Cline, Aider, and more — auto-detected).
 
 ```bash
-# Install all 12 skills to all detected agents
+# Install every skill detected by your agent
 npx skills add Ship-With-AI/skills --all
 
 # Or cherry-pick a single skill (e.g., just /autopilot)
@@ -34,7 +34,7 @@ If you're Claude-Code-only and prefer native tooling (no extra CLI):
 # 1. Register the marketplace (one-time)
 claude plugin marketplace add Ship-With-AI/skills
 
-# 2. Install the plugin (gets all 12 skills)
+# 2. Install the plugin (includes the full skill collection)
 /plugin install ship-with-ai@ship-with-ai-skills
 ```
 
@@ -57,6 +57,7 @@ Every skill is available via natural-language invocation (`/autopilot`, `/factor
 | [night-shift](./skills/night-shift) | Run autonomous overnight builds safely — pre-sleep checklists, guardrail configuration, and morning review. |
 | [parallel-build](./skills/parallel-build) | Build multiple features simultaneously — dependency analysis, parallel agent sessions, and integration checks. |
 | [pre-flight](./skills/pre-flight) | 4-question first-user-readiness eval — runs after /autopilot or /factory says "shipped." Checks output (does the URL work), trace (does the user flow complete), component (do promises resolve to code), drift (still shipping the original idea?). Produces a SHIP/FIX/REBUILD verdict. |
+| [proof-project](./skills/proof-project) | Turn one personally observed problem into a narrowly scoped live portfolio project — one user, one input, one useful output, a three-step demo, and a build-ready brief. |
 | [steering-loop](./skills/steering-loop) | Scaffold an agent harness inside any project (guides + sensors + steering-log) and iterate it one rep at a time — Read → Guide → Run → Sense → Log. The companion to the WHAT/WHY/HOW skill stack. |
 
 ## Structure
