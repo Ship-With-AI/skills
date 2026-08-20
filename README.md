@@ -54,6 +54,7 @@ Every skill is available via natural-language invocation (`/autopilot`, `/factor
 | [go-live](./skills/go-live) | Deploy to production — stack detection, hosting setup, domain config, and verification. |
 | [graveyard](./skills/graveyard) | Close out dead or abandoned side-project repos — produces portfolio story, three rehearsable STAR+R stories, and a closing README commit. |
 | [launch-day](./skills/launch-day) | Get first users and revenue — platform-specific launch posts, outreach templates, and a 24-hour timeline. |
+| [niche-finder](./skills/niche-finder) | Turn recurring work complaints into a defensible niche statement grounded in lived pain, payable demand, and edge-case knowledge. |
 | [night-shift](./skills/night-shift) | Run autonomous overnight builds safely — pre-sleep checklists, guardrail configuration, and morning review. |
 | [parallel-build](./skills/parallel-build) | Build multiple features simultaneously — dependency analysis, parallel agent sessions, and integration checks. |
 | [pre-flight](./skills/pre-flight) | 4-question first-user-readiness eval — runs after /autopilot or /factory says "shipped." Checks output (does the URL work), trace (does the user flow complete), component (do promises resolve to code), drift (still shipping the original idea?). Produces a SHIP/FIX/REBUILD verdict. |

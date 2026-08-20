@@ -1,0 +1,40 @@
+{
+  "skill_name": "niche-finder",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I keep complaining about three things at work: every month I merge six customer CSV exports by hand and duplicate company names silently double-count revenue; our standups run long; and the office booking app logs me out. The CSV job takes four hours, finance uses the result for forecasts, and three other small agencies I know do the same thing. Help me find my niche.",
+      "expected_output": "Selects the recurring CSV reconciliation problem, produces the specified niche statement, names three evidence-based edge cases, and gives one peer sentence without inventing another market.",
+      "assertions": [
+        "Selects CSV reconciliation or customer-export normalization as the niche, not standups or office booking",
+        "Uses the exact three-part output structure: Niche statement, Your unfair advantage, Peer sentence",
+        "Provides exactly three edge cases grounded in the supplied CSV problem",
+        "Does not invent an unrelated market, product, or implementation plan"
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I want to find my consulting niche. I work in education technology and there are lots of annoying processes.",
+      "expected_output": "Does not invent a niche; asks for the last specific bad occurrence or another minimum evidence-gathering question.",
+      "assertions": [
+        "Asks for one specific recent bad occurrence or equivalent concrete evidence",
+        "Does not propose a niche statement from the broad education-technology category",
+        "Does not invent example pains and present them as the user's experience"
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My recurring work complaints are that our internal team lunch poll takes ten minutes every Friday, client onboarding documents arrive in five different formats and someone spends a day retyping them into the CRM, and the office coffee machine runs out of beans. The onboarding errors delay account setup and two partner firms have the same issue. Find the niche I should pursue.",
+      "expected_output": "Ranks the payable onboarding-document problem above trivial annoyances and returns only the niche statement, three grounded edge cases, and peer sentence.",
+      "assertions": [
+        "Selects client-onboarding document normalization or CRM intake as the niche, not lunch polling or coffee",
+        "Uses the exact three-part output structure: Niche statement, Your unfair advantage, Peer sentence",
+        "Provides exactly three edge cases grounded in the supplied onboarding problem",
+        "Avoids branding, market-size claims, and an implementation plan"
+      ],
+      "files": []
+    }
+  ]
+}
