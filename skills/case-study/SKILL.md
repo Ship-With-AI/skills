@@ -1,72 +1,69 @@
 ---
 name: case-study
-description: Turns an existing internal script or tool into a buyer-facing case study and outreach message by inspecting the repository, recovering evidence, and interviewing only for facts the code cannot prove. Use when someone says "/case-study", wants to turn internal work into portfolio proof, document an automation, extract a case study from a repository, or pitch an existing tool to prospective clients.
+description: Turns an existing internal script or tool into a buyer-facing case study and outreach message grounded in repository evidence. Use when someone says "/case-study", wants to turn internal work into portfolio proof, document an automation, extract a case study from a repository, or pitch an existing tool to prospective clients.
 ---
 
 # Case Study
 
-Turn one internal tool that already works into a concise client-facing case study. Do not write new product code.
+Turn one internal tool that already works into credible client-facing proof. Do not write or modify product code.
 
-The goal is credible proof: one real problem, measurable before and after, two or three judgment calls, one reusable problem archetype, and one message the user can send today.
+## Quick start
+
+Run `/case-study [optional script, tool, or subdirectory]` from the project containing the work. The skill inspects the project, asks one compact batch of questions for facts it cannot recover, then writes a case study and outreach message.
 
 ## Evidence rules
 
-- Never invent users, metrics, outcomes, costs, incidents, or prospect names.
-- Distinguish facts found in the repository from estimates supplied by the user.
-- Cite repository evidence with file paths and symbols where useful, but translate it into buyer language in the final case study.
-- Exclude secrets, personal data, private client identifiers, and proprietary implementation details unless the user explicitly approves them.
+- Label every claim as **observed**, **implemented**, **documented**, or **user-supplied** in the evidence notes. A README claim is documented; source code is implemented; neither is an observed outcome.
+- Treat estimates as estimates and preserve ranges instead of manufacturing precision.
+- Exclude secrets, personal data, private client identifiers, and proprietary details unless the user explicitly approves them.
 - Write for the buyer, not a code reviewer: outcomes and avoided costs before implementation details.
+- Do not overwrite an unrelated existing case-study file.
 
 ## Workflow
 
-Work through these steps in order. Inspect first; ask only for facts the repository cannot establish. Ask one compact batch of questions rather than repeating questions already answered by files or the user.
+Inspect first and complete the workflow automatically. Ask only for facts that available files and user context cannot establish, grouped into one compact question set.
 
 ### 1. Name the problem, not the tool
 
-Inspect the README, entry points, tests, examples, documentation, and relevant git history. Identify:
-
-- who used the tool;
-- the single input it receives;
-- the useful output or decision it produces;
-- the manual or fragile process it replaced.
+Inspect the README, entry points, tests, examples, documentation, and relevant git history. Identify the real user, single input, useful output or decision, and manual or fragile process the tool replaced.
 
 Write one sentence in the affected person's language. A non-programmer with the same problem should recognize their bad day.
 
-If multiple tools or workflows are present, select the one with the strongest evidence of real use. Ask the user to choose only when two candidates are genuinely tied.
+If several tools are present, select the one with the strongest evidence of real use. Ask the user to choose only when candidates are genuinely tied.
 
 ### 2. Quantify before and after
 
-Look for timings, volumes, failure counts, support incidents, benchmarks, logs, or documented outcomes. Capture comparable before-and-after measures: time, error rate, volume, cost, or risk.
+Collect comparable measures of time, error rate, volume, cost, or risk using this provenance order:
+1. **Observed:** behavior or measurements exercised during this run, or captured in an existing benchmark or output.
+2. **Implemented:** behavior directly supported by source code or tests but not exercised during this run.
+3. **Documented:** claims in READMEs, logs, tickets, or git history.
+4. **User-supplied:** confirmed values or explicitly labeled estimates.
 
-If the repository cannot prove them, ask the user for rough ranges. Label estimates as estimates. If no honest comparison is available, say so and use a concrete qualitative outcome instead of manufacturing precision.
+Do not run untrusted code merely to create proof. If no honest comparison exists, use a concrete qualitative outcome instead of fake precision.
 
 ### 3. Extract the judgment calls
 
-Find two or three decisions a naive implementation would get wrong: validation, matching rules, deduplication, exception handling, safety limits, fallbacks, or deliberate refusal paths.
+Find two or three decisions a naive implementation would get wrong: validation, matching, deduplication, exception handling, safety limits, fallbacks, or refusal paths.
 
-For each decision, state:
-
-1. what the tool does;
-2. why the obvious approach fails;
-3. what failure or cost the decision prevents.
-
-If no meaningful judgment call exists, explain that this tool is a receipt rather than a strong case study and ask whether to inspect another tool.
+For each, explain what the tool does, why the obvious approach fails, and what user cost or failure the decision prevents. If none exists, explain that the tool is a receipt rather than a strong case study and offer to inspect another tool.
 
 ### 4. Generalize the archetype
 
-Strip away company and domain-specific nouns. Name the broader problem pattern and the buyer role that repeatedly encounters it.
+Strip away company and domain-specific nouns. Name the broader problem pattern and buyer role that repeatedly encounters it.
 
-Ask the user for three real prospects from their network or target market if none were provided. Never fabricate relationships or claim a company has the problem without evidence.
+Use only prospects the user names or evidence supports. If none are available, leave a visible prompt for three real prospects rather than fabricating them.
 
-### 5. Produce the case study
+### 5. Produce the deliverable
 
-Write `CASE-STUDY.md` in the current project with this structure:
+Write `CASE-STUDY.md`. If that path contains unrelated work, write `CASE-STUDY-[tool-slug].md` instead and report the chosen path.
+
+Use this structure:
 
 ```markdown
 # [Outcome-focused title]
 
 ## The problem
-[The user's bad day, in buyer language.]
+[The buyer's bad day.]
 
 ## Before and after
 [Comparable evidence, with estimates labeled.]
@@ -78,15 +75,17 @@ Write `CASE-STUDY.md` in the current project with this structure:
 - **[Decision]:** [Why it mattered and what it prevented.]
 
 ## Who else has this problem
-[Problem archetype, buyer role, and three user-confirmed prospects when available.]
+[Problem archetype, buyer role, and user-confirmed prospects.]
 
 ## Outreach message
-> I built a tool that took [before] down to [after] for [problem in buyer language], and designed it to [key judgment call] so [costly failure] does not happen. You're dealing with [archetype]. Worth 15 minutes?
+> I built a tool that took [before] down to [after] for [problem], and designed it to [judgment call] so [costly failure] does not happen. You're dealing with [archetype]. Worth 15 minutes?
 
 ## Evidence notes
-[Repository paths supporting the claims; facts still requiring confirmation.]
+- **[Observed | Implemented | Documented | User-supplied]:** [claim] — [source]
 ```
 
-Keep the client-facing case study near 200 words, excluding evidence notes. Replace the outreach placeholders with verified facts. If a fact is missing, leave a clearly labeled bracket rather than guessing.
+Keep provenance labels in the evidence notes. In the buyer-facing sections, use only natural qualifiers required for honesty, such as “estimated”; do not make the outreach message read like an audit report.
 
-Finish by showing the outreach message in chat and naming the one unresolved fact that would most strengthen it. Do not send the message or publish the case study without an explicit request.
+Keep the client-facing sections near 200 words, excluding evidence notes. Replace placeholders with supported facts; leave missing facts visibly bracketed.
+
+Finish by reporting the output path, showing the outreach message, and naming the one unresolved fact that would most strengthen it. Do not send or publish anything without an explicit request.
