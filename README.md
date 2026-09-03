@@ -49,6 +49,7 @@ Every skill is available via natural-language invocation (`/autopilot`, `/factor
 | [autopilot](./skills/autopilot) | Wire the deterministic 5-decision harness that ships your next side project end-to-end — three input files, four named stages, three approval gates, one reflection rule per run. |
 | [collect-feedback](./skills/collect-feedback) | Find testers, prepare outreach, analyze feedback, and convert it into buildable specs. |
 | [context-tax](./skills/context-tax) | Audit a Claude Code session — measure how much time and tokens went to re-explaining context vs. shipping features. |
+| [case-study](./skills/case-study) | Turn an existing internal script or tool into a buyer-facing case study and outreach message, grounded in repository evidence. |
 | [evaluate-side-project](./skills/evaluate-side-project) | Evaluate, score, and pressure-test a side project idea before implementation — Reddit problem mining, Kaufman 10-factor score, and one-feature PASTA MVP verdict. |
 | [factory](./skills/factory) | Run multiple side projects in parallel via an AI org chart — Paperclip company, 3-5 agents, per-agent budgets, four daily attention windows. Companion to /autopilot at the portfolio scale. |
 | [go-live](./skills/go-live) | Deploy to production — stack detection, hosting setup, domain config, and verification. |
