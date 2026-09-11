@@ -1,7 +1,7 @@
 {
   "name": "ship-with-ai",
   "description": "Ship With AI's full methodology kit as Claude Code skills: autopilot (single-project harness), factory (multi-project org chart via Paperclip), go-live (deploy), launch-day (first-user outreach), night-shift (overnight builds), parallel-build (multi-feature), context-tax (session diagnostic), graveyard (dead-project closeout), collect-feedback (tester pipeline). Companion to the Ship With AI newsletter at shipwithai.substack.com.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Ship With AI",
     "email": "hello@shipwithai.xyz",

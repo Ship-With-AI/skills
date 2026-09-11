@@ -30,17 +30,15 @@ From [vercel-labs/skills](https://github.com/vercel-labs/skills). No CLI install
 
 If you're Claude-Code-only and prefer native tooling (no extra CLI):
 
-```bash
-# 1. Register the marketplace (one-time)
-claude plugin marketplace add Ship-With-AI/skills
-
-# 2. Install the plugin (includes the full skill collection)
+```text
+# Inside Claude Code: register the marketplace, then install the collection.
+/plugin marketplace add Ship-With-AI/skills
 /plugin install ship-with-ai@ship-with-ai-skills
 ```
 
 ### After install
 
-Every skill is available via natural-language invocation (`/autopilot`, `/factory`, `/graveyard`, etc.) regardless of which install path you used — agents trigger skills via the `description:` field in each `SKILL.md`, not via path or namespace.
+Invocation names depend on the agent and installation route. Native Claude Code collection skills use the plugin namespace, such as `/ship-with-ai:autopilot`; selectively installed Claude Code skills use standalone names such as `/autopilot`. Other agents use their own skill syntax. Each SKILL.md description guides discovery.
 
 ## Available skills
 
@@ -50,6 +48,7 @@ Every skill is available via natural-language invocation (`/autopilot`, `/factor
 | [collect-feedback](./skills/collect-feedback) | Find testers, prepare outreach, analyze feedback, and convert it into buildable specs. |
 | [context-tax](./skills/context-tax) | Audit a Claude Code session — measure how much time and tokens went to re-explaining context vs. shipping features. |
 | [case-study](./skills/case-study) | Turn an existing internal script or tool into a buyer-facing case study and outreach message, grounded in repository evidence. |
+| [cumpa](./skills/cumpa) | Open Cumpa's native local code-review flow and consume canonical feedback. Requires the separately installed CLI; supports explicit Claude Code, Codex, Pi, and OMP routes. |
 | [evaluate-side-project](./skills/evaluate-side-project) | Evaluate, score, and pressure-test a side project idea before implementation — Reddit problem mining, Kaufman 10-factor score, and one-feature PASTA MVP verdict. |
 | [factory](./skills/factory) | Run multiple side projects in parallel via an AI org chart — Paperclip company, 3-5 agents, per-agent budgets, four daily attention windows. Companion to /autopilot at the portfolio scale. |
 | [go-live](./skills/go-live) | Deploy to production — stack detection, hosting setup, domain config, and verification. |
@@ -61,6 +60,36 @@ Every skill is available via natural-language invocation (`/autopilot`, `/factor
 | [pre-flight](./skills/pre-flight) | 4-question first-user-readiness eval — runs after /autopilot or /factory says "shipped." Checks output (does the URL work), trace (does the user flow complete), component (do promises resolve to code), drift (still shipping the original idea?). Produces a SHIP/FIX/REBUILD verdict. |
 | [proof-project](./skills/proof-project) | Turn one personally observed problem into a narrowly scoped live portfolio project — one user, one input, one useful output, a three-step demo, and a build-ready brief. |
 | [steering-loop](./skills/steering-loop) | Scaffold an agent harness inside any project (guides + sensors + steering-log) and iterate it one rep at a time — Read → Guide → Run → Sense → Log. The companion to the WHAT/WHY/HOW skill stack. |
+
+## Cumpa: local code review
+
+[Cumpa](./skills/cumpa) is a thin, independently [MIT-licensed](./skills/cumpa/LICENSE) delegate to the separately installed [Cumpa CLI](https://github.com/Ship-With-AI/cumpa). The skill does not bundle or automatically install the application.
+
+Install the CLI yourself before invoking the skill. Node.js 24+ and Git 2.43.0+ are required:
+
+```bash
+npm install --global @shipwithai/cumpa@1.5.0
+```
+
+The skill accepts stable Cumpa versions `>=1.5.0 <2.0.0`, including valid build metadata, but rejects prereleases. Cumpa 1.5.0 is the independently verified release; acceptance of future stable 1.x versions is a policy, not a claim that those releases have been tested. Missing or incompatible Cumpa stops with installation guidance; there is no automatic upgrade or npx fallback.
+
+Run project-scoped installation commands from the repository where you want to use the skill:
+
+| Agent | Skill installation | Invoke in the agent |
+|-------|--------------------|---------------------|
+| Claude Code | Install the existing collection through Path B above. | `/ship-with-ai:cumpa` |
+| Codex | `npx skills add Ship-With-AI/skills --skill cumpa -a codex` | `$cumpa` or choose Cumpa in `/skills` |
+| Pi | `npx skills add Ship-With-AI/skills --skill cumpa -a pi` | `/skill:cumpa` |
+| OMP | Use the native marketplace commands below. | `/skill:cumpa` |
+
+```bash
+omp plugin marketplace add Ship-With-AI/skills
+omp plugin install --scope project ship-with-ai@ship-with-ai-skills
+```
+
+Pi and OMP are separate targets. OMP uses the existing Claude-compatible marketplace catalog, not an assumed Skills CLI `-a omp` adapter. The installer's wider agent list is not a blanket Cumpa compatibility claim.
+
+The developer reviews in Cumpa and presses **Finish**. The skill waits for successful process exit and canonical JSON before reporting feedback; opening a browser or displaying a URL is not completion. Pi uses foreground Bash with live stderr, while Claude Code, Codex, and OMP use their supported supervised process mechanisms. The skill never edits code, commits, pushes, or implements its own review engine.
 
 ## Structure
 
@@ -79,7 +108,7 @@ Ship-With-AI/skills/
     └── ...                # one directory per skill
 ```
 
-Per the [Claude Code plugins reference](https://code.claude.com/docs/en/plugins-reference): one plugin manifest, one marketplace catalog, skills nested under `skills/<name>/SKILL.md`. Adding a new skill = drop a new directory under `skills/` — no additional metadata edits needed.
+Per the [Claude Code plugins reference](https://code.claude.com/docs/en/plugins-reference): keep one plugin manifest and marketplace catalog, with skills under `skills/<name>/SKILL.md`. Add new skill directories to that collection and increment the declared plugin version when publishing content updates so existing installations can receive them.
 
 ## Companion newsletter
 
