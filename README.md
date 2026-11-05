@@ -58,6 +58,7 @@ Invocation names depend on the agent and installation route. Native Claude Code 
 | [night-shift](./skills/night-shift) | Run autonomous overnight builds safely — pre-sleep checklists, guardrail configuration, and morning review. |
 | [parallel-build](./skills/parallel-build) | Build multiple features simultaneously — dependency analysis, parallel agent sessions, and integration checks. |
 | [pre-flight](./skills/pre-flight) | 4-question first-user-readiness eval — runs after /autopilot or /factory says "shipped." Checks output (does the URL work), trace (does the user flow complete), component (do promises resolve to code), drift (still shipping the original idea?). Produces a SHIP/FIX/REBUILD verdict. |
+| [problem-to-product](./skills/problem-to-product) | Turn a problem you keep failing at into a product you use every week first — a one-question-at-a-time brief, requirements with non-goals and an evening-sized roadmap, then a first-user log that tells you when it's ready for others. |
 | [proof-project](./skills/proof-project) | Turn one personally observed problem into a narrowly scoped live portfolio project — one user, one input, one useful output, a three-step demo, and a build-ready brief. |
 | [steering-loop](./skills/steering-loop) | Scaffold an agent harness inside any project (guides + sensors + steering-log) and iterate it one rep at a time — Read → Guide → Run → Sense → Log. The companion to the WHAT/WHY/HOW skill stack. |
 
